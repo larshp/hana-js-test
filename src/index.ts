@@ -32,3 +32,30 @@ function callback(foo: any, bar: any) {
 
 client.connect(callback);
 console.dir("hello world");
+
+/*
+require('dotenv').config();
+var hana = require("@sap/hana-client");
+
+var connOptions = {
+  serverNode: process.env.DB_HOST + ":443",
+  encrypt: "true",
+  sslValidateCertificate: "false",
+  uid: "DBADMIN",
+  pwd: process.env.DB_PASS,
+};
+
+var dbConnection = hana.createConnection();
+
+dbConnection.connect(connOptions, function (err: any) {
+  if (err) throw err;
+  dbConnection.exec(
+    "SELECT * FROM TRAVEL.ROOM",
+    function (err: any, result: any) {
+      if (err) throw err;
+      console.log(result[0]);
+      dbConnection.disconnect();
+    }
+  );
+});
+*/
