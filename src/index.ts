@@ -6,7 +6,7 @@ var client = hdb.createClient({
   port     : 443,
   user     : 'DBADMIN',
   password : process.env.DB_PASS,
-//  initializationTimeout: 150000,
+  useTLS   : true,
   useCesu8 : false
 });
 
@@ -28,10 +28,19 @@ client.on('connect', onConnect);
 function callback(foo: any, bar: any) {
   console.dir(foo);
   console.dir(bar);
+
+  client.exec("SELECT * FROM TRAVEL.ROOM", function(err: any, rows: any) {
+    if (err) {
+      return console.error('Error:', err);
+    }
+    console.log('Rows:', rows);
+    client.end();
+  });
 }
 
 client.connect(callback);
 console.dir("hello world");
+
 
 /*
 require('dotenv').config();
@@ -53,7 +62,7 @@ dbConnection.connect(connOptions, function (err: any) {
     "SELECT * FROM TRAVEL.ROOM",
     function (err: any, result: any) {
       if (err) throw err;
-      console.log(result[0]);
+      console.log(result);
       dbConnection.disconnect();
     }
   );
